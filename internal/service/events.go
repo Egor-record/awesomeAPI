@@ -37,7 +37,7 @@ func (s *EventService) StartEvent(c *gin.Context) {
 		return
 	}
 	storageDB := newEventStorage(s.eventStorage)
-	err = storageDB.eventStorage.StartEvent(body.Type)
+	err = storageDB.eventStorage.StartEvent(strings.ToLower(body.Type))
 	if err != nil {
 		c.JSON(200, gin.H{
 			"error": err,
@@ -65,7 +65,7 @@ func (s *EventService) EndEvent(c *gin.Context) {
 	}
 
 	storageDB := newEventStorage(s.eventStorage)
-	err = storageDB.eventStorage.EndEvent(body.Type)
+	err = storageDB.eventStorage.EndEvent(strings.ToLower(body.Type))
 	if err != nil {
 		switch err {
 		case mongo.ErrNoDocuments:
